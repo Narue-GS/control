@@ -11,7 +11,11 @@ export default function Page() {
     <>
       <main className="flex bg-[url('../../public/chip.svg')] bg-center bg-cover bg-blue-500 md:bg-opacity-0 md:bg-none  min-h-screen flex-col p-6">
         <div className="flex justify-center bg-transparent md:bg-[url('../../public/chip.svg')] text-white bg-center bg-cover h-40 shrink-0 items-center rounded-lg md:bg-blue-500 md:h-52 overflow-hidden">
-          <span className={`${lusitana.className} shadow tracking-widest font-bold text-3xl md:text-6xl`}>control</span>
+          <span className={`${lusitana.className} underline decoration-pink-600 shadow  tracking-widest font-bold text-4xl md:text-6xl`}>
+            <span className='text-transparent'>a</span>
+            CONTROL
+            <span className='text-transparent'>a</span>
+          </span>
         </div>
         <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
           <div className="flex flex-col gap-6 rounded-lg bg-gray-50 px-6 py-10  md:w-1/2 md:px-20">
@@ -26,7 +30,7 @@ export default function Page() {
               <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
             </Link>
           </div>
-          <div className="flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
+          <div className="flex items-center justify-center bg-white rounded-lg p-6 md:w-3/5 md:px-28 md:py-12">
             <Image
               src="/hero-desktop.png"
               width={1000}
