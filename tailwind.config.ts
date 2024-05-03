@@ -18,7 +18,15 @@ const config: Config = {
           600: '#2F6FEB',
         },
       },
+      backgroundSize: {
+        'close':'300%',
+        'close-mobile': '800%'
+      },
+      height: {
+        '140px': 'calc(9rem - 4px)',
+      },
     },
+    
     keyframes: {
       shimmer: {
         '100%': {
