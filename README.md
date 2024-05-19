@@ -1,5 +1,5 @@
 # Todo:
-- Wave effect on home banner
+- Wave effect on home banner circuits
 
 
 # To think:
