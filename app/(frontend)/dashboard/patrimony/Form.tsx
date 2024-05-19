@@ -80,7 +80,7 @@ export default function EntityForm({data, close, save, delete_}: {data: IPatrimo
   return (
     <section className="flex w-screen h-screen fixed left-0 justify-center">
       <div onClick={close} className="w-screen h-screen top-0 left-0 backdrop-brightness-75"></div>
-      <div className="w-[30rem] max-w-[90vw] max-h-[88vh] overflow-scroll animation-open  absolute top-10 z-20 bg-white p-4 rounded-lg">
+      <div className="w-[30rem] max-w-[90vw] max-h-[88vh] overflow-scroll animate-open-b  absolute top-10 z-20 bg-white p-4 rounded-lg">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField control={form.control} name="type" render={({ field }) => (

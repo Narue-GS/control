@@ -25,15 +25,38 @@ const config: Config = {
       height: {
         '140px': 'calc(9rem - 4px)',
       },
-    },
-    
-    keyframes: {
-      shimmer: {
-        '100%': {
-          transform: 'translateX(100%)',
+      keyframes: {
+        shimmer: {
+          '100%': {
+            transform: 'translateX(100%)',
+          },
+        },
+        open:{
+          '0%': {
+            opacity:'0%'
+          },
+          '100%': {
+            opacity:'100%'
+          }
+        },
+        openB: {
+          '0%': {
+            top:'5rem',
+            opacity:'0%'
+          },
+          '100%': {
+            top:'2.5rem',
+            opacity:'100%'
+          }
         },
       },
+      animation: {
+        "open":"open 0.2s linear forwards",
+        "open-b":"openB 0.1s linear forwards",
+      }
     },
+    
+    
   },
   plugins: [require('@tailwindcss/forms')],
 };

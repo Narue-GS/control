@@ -11,7 +11,7 @@ const mock:IModule[] = [
     name:"patrimony",
   },
   {
-    id:0,
+    id:1,
     fantasy_name:"Invoices 📈",
     name:"invoice",
   },

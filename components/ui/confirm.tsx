@@ -18,7 +18,7 @@ export function Confirm({children, confirmFunction}:{children:ReactNode, confirm
       <AlertDialogTrigger asChild>
         {children}
       </AlertDialogTrigger>
-      <AlertDialogContent className="bg-white ">
+      <AlertDialogContent className="bg-white animate-open">
         <AlertDialogHeader>
           <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
           
