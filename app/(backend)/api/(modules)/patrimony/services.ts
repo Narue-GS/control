@@ -1,44 +1,24 @@
+'use server'
+
 import { IPatrimony } from "./types"
+import { sql } from "@/app/lib/db"
 
 
-const mock:IPatrimony[] = [
-  {
-    id:"N1",
-    type:"Notebook",
-    model:"Samsung - NP350XAA",
-    location:"Primavera",
-    area:"Comunicação",
-    situation: "Estoque",
-    user:"",
-    obs:"Sem senha"
-  },
-  {
-    id:"D1",
-    type:"Notebook",
-    model:"Dell - OPTIPLEX 3020",
-    location:"Primavera",
-    area:"Coworking",
-    situation: "Em uso",
-    user:"Cris Oliveira",
-    obs:"Sem senha"
-  },
-  {
-    id:"D2",
-    type:"Notebook",
-    model:"Dell - OPTIPLEX 3020",
-    location:"Primavera",
-    area:"Coworking",
-    situation: "Em uso",
-    user:"Cris Oliveira",
-    obs:"Sem senha"
-  },
-  
-]
+const entityName = "patrimony"
 
+
+export async function CREATE(data:IPatrimony) {
+  return await sql`
+    INSERT INTO patrimony (id, type, model, location, area, situation, obs, "user")
+    VALUES (${data.id}, ${data.type}, ${data.model}, ${data.location}, ${data.area}, ${data.situation}, ${data.obs}, ${data.user})
+  `
+}
 
 export async function READ(): Promise<IPatrimony[] | []> {
+  const req = await sql`SELECT * from patrimony ORDER BY id`
+  
   try {
-    const data = mock.map((i) => (
+    const data = req.map((i) => (
       {
         id:i.id,
         type:i.type,

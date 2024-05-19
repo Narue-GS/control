@@ -46,9 +46,6 @@ const formSchema = z.object({
 export default function EntityForm({data, close, save, delete_}: {data: IPatrimony, close:() => void, save:(data:IPatrimony) => void, delete_:(id:string) => void}) {
   // let [selectedItem, setSelectedItem] = useState(data)
 
-  console.log(data);
-  
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

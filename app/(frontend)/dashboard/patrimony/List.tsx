@@ -4,6 +4,7 @@ import { IPatrimony, emptyModel } from "@/app/(backend)/api/(modules)/patrimony/
 import EntityForm from "./Form";
 
 import { useState } from "react";
+import { CREATE } from "@/app/(backend)/api/(modules)/patrimony/services";
 
 export default function List({data}: {data:IPatrimony[]}){
   let [list, setList] = useState(data)
@@ -11,7 +12,10 @@ export default function List({data}: {data:IPatrimony[]}){
   const [form, setForm] = useState({state:false, data:{...emptyModel}, save:create})
 
   function create(data:IPatrimony) {
+    createID(data.type)
     data = {...data, id:createID(data.type)}
+    CREATE(data)
+
     setList([...list, data])
   }
 
@@ -29,7 +33,8 @@ export default function List({data}: {data:IPatrimony[]}){
 
   function createID(type:string) {
     // acha o último item com o a letra do id sendo igual a primeira letra do tipo informado
-    let lastItem = list.filter(i => i.id.slice(0,1) == type.slice(0,1))
+    let lastItem = list.filter(i => i.id.slice(0,1) == type.slice(0,1)).length ? list.filter(i => i.id.slice(0,1) == type.slice(0,1))  : [{id:type.slice(0,1) + "0"}]
+    
     // almenta o numeral do item encontrado em 1
     let id = lastItem[lastItem.length -1 ].id.slice(0,1) + (parseInt(lastItem[lastItem.length -1 ].id.slice(1)) + 1)
     return id
