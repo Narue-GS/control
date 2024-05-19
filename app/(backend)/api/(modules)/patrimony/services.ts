@@ -1,56 +1,58 @@
-export interface IPatrimony {
-  id:number,
-  name:string,
-  desc:string,
-  avarageValue:number
-}
+import { IPatrimony } from "./types"
+
 
 const mock:IPatrimony[] = [
   {
-    id:0,
-    name:"Computer",
-    desc:"Gabinete HP, modelo:compaq elite 8300 small form factor",
-    avarageValue:800
+    id:"N1",
+    type:"Notebook",
+    model:"Samsung - NP350XAA",
+    location:"Primavera",
+    area:"Comunicação",
+    situation: "Estoque",
+    user:"",
+    obs:"Sem senha"
   },
   {
-    id:1,
-    name:"Computer",
-    desc:"Gabinete HP, modelo:compaq elite 8300 small form factor",
-    avarageValue:800
+    id:"D1",
+    type:"Notebook",
+    model:"Dell - OPTIPLEX 3020",
+    location:"Primavera",
+    area:"Coworking",
+    situation: "Em uso",
+    user:"Cris Oliveira",
+    obs:"Sem senha"
   },
   {
-    id:2,
-    name:"Computer",
-    desc:"Gabinete HP, modelo:compaq elite 8300 small form factor",
-    avarageValue:800
+    id:"D2",
+    type:"Notebook",
+    model:"Dell - OPTIPLEX 3020",
+    location:"Primavera",
+    area:"Coworking",
+    situation: "Em uso",
+    user:"Cris Oliveira",
+    obs:"Sem senha"
   },
-  {
-    id:3,
-    name:"Computer",
-    desc:"Gabinete HP, modelo:compaq elite 8300 small form factor",
-    avarageValue:800
-  },
+  
 ]
 
 
-export async function READ(): Promise<{
-  id: number;
-  name: string;
-  desc: string;
-  avarageValue: number;
-  }[] | []> {
+export async function READ(): Promise<IPatrimony[] | []> {
   try {
     const data = mock.map((i) => (
       {
         id:i.id,
-        name:i.name,
-        desc:i.desc,
-        avarageValue:i.avarageValue
+        type:i.type,
+        model:i.model,
+        location:i.location,
+        area:i.area,
+        situation: i.situation,
+        user:i.user,
+        obs:i.obs
       }))
     return data
   }
   catch(err) {
-    console.log(err)
+    console.log(err)  
     return[]
   }
 }

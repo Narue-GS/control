@@ -13,7 +13,7 @@ const mock:IModule[] = [
   {
     id:0,
     fantasy_name:"Invoices 📈",
-    name:"invoices",
+    name:"invoice",
   },
 ]
 
