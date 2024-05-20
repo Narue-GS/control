@@ -9,7 +9,7 @@ export default function Sidebar({username, modules}:{username:string, modules:IM
   const pathname = usePathname()
 
   return(
-    <section className="min-w-[20rem] w-[25vw] h-screen border-r p-6 flex flex-col gap-12">
+    <section className="min-w-[20rem] w-[25vw] min-h-screen border-r p-6 flex flex-col gap-12">
       <div className="w-full flex items-center font-bold bg-[url('../../public/chip.svg')] bg-close text-white p-6 text-4xl h-140px px bg-blue-500 rounded-lg outline-none">
         Bem vinde <br />
         User!
