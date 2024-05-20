@@ -1,5 +1,6 @@
 export interface IPatrimony {
-  id:string,
+  id:number,
+  fantasyId:string,
   type:string,
   model:string,
   location: "Primavera" | "Sapiens" | "Usuário",
@@ -10,7 +11,8 @@ export interface IPatrimony {
 }
 
 export const emptyModel:IPatrimony = {
-  id:"",
+  id:0,
+  fantasyId:"",
   type: "",
   model: "",
   location: "Primavera",

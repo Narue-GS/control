@@ -4,9 +4,13 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import Image from 'next/image';
 import { lusitana } from '../ui/fonts';
+import { redirect } from 'next/navigation';
+
+
 
 
 export default function Page() {
+  redirect("/dashboard/patrimony")
   return (
     <>
       <main className="flex bg-[url('../../public/chip.svg')] bg-center bg-cover bg-blue-500 md:bg-opacity-0 md:bg-none  min-h-screen flex-col p-6">

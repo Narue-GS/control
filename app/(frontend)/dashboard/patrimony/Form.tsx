@@ -43,7 +43,7 @@ const formSchema = z.object({
   obs: z.string().optional()
 })
  
-export default function EntityForm({data, close, save, delete_}: {data: IPatrimony, close:() => void, save:(data:IPatrimony) => void, delete_:(id:string) => void}) {
+export default function EntityForm({data, close, save, delete_}: {data: IPatrimony, close:() => void, save:(data:IPatrimony) => void, delete_:(id:number) => void}) {
   // let [selectedItem, setSelectedItem] = useState(data)
 
   console.log(data);
@@ -66,6 +66,7 @@ export default function EntityForm({data, close, save, delete_}: {data: IPatrimo
     function onSubmit(values: z.infer<typeof formSchema>) {
       save({
         id: data.id,
+        fantasyId: data.fantasyId,
         type: values.type,
         model: values.model,
         location: values.location,
@@ -196,7 +197,7 @@ export default function EntityForm({data, close, save, delete_}: {data: IPatrimo
             <Button className="px-4 py-1 outline rounded-lg text-red-500 hover:scale-110 transition mr-5" type="button" onClick={close}>Cancelar</Button>
             <Button className="px-4 py-1 outline rounded-lg text-green-600 hover:scale-110 transition" type="submit" >Confirmar</Button>
             <br />
-            {data.id ?
+            {data.id != 0 ?
               <Confirm confirmFunction={() => {delete_(data.id); close()}}>
                 <Button className="px-4 py-0 w-full rounded-lg text-white bg-red-500 shadow hover:bg-red-600 transition" type="button" >Deletar</Button>
               </Confirm>

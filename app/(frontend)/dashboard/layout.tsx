@@ -5,6 +5,8 @@ import Sidebar from './components/sidebar';
 import { READ } from '@/app/(backend)/api/(modules)/services';
 
 
+export const dynamic = "force-dynamic"
+
 export default async function RootLayout({children,}:{children: React.ReactNode;}) {
   const modules = await READ()
   const currentUser = "admin"
