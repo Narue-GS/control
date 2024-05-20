@@ -18,7 +18,7 @@ export async function CREATE(data:IPatrimony) {
 export async function UPDATE(data:IPatrimony) {
   return await sql`
     UPDATE patrimony
-    SET "fantasyId" = ${data.fantasyId}
+    SET "fantasyId" = ${data.fantasyId},
       type = ${data.type},
       model = ${data.model},
       location = ${data.location},

@@ -62,12 +62,11 @@ export default function List({data}: {data:IPatrimony[]}){
             className="w-[20%] hover:shadow-lg rounded-lg font-semibold bg-pink-600 h-2/3 text-white py-1 transition">Criar novo +</button>
           </div>
           {/* () => console.log(list[list.length -1].id.slice(0, 1) + (parseInt(list[list.length -1].id.slice(1)) + 1)) */}
-          
         </header>
         <div className="flex justify-center mt-10">
-          <div onScroll={(e) => e.currentTarget.classList.add("outline")} onMouseLeave={(e) => e.currentTarget.classList.remove("outline")} className="overflow-scroll rounded-lg w-[55rem] h-[24rem] transition">
+          <div onScroll={(e) => e.currentTarget.classList.add("outline")} onMouseLeave={(e) => e.currentTarget.classList.remove("outline")} className="overflow-scroll rounded-lg w-[55rem] max-h-[24rem] transition">
             <table className="w-full p-3 border rounded-lg outline">
-              <tbody className="overflow-scroll h-[24rem]">
+              <tbody className="overflow-scroll ">
                 <tr className="bg-gray-300">
                   <th className="p-3 min-w-[5rem] ">id</th>
                   <th className="p-3 min-w-[12rem] ">Tipo</th>
@@ -90,12 +89,12 @@ export default function List({data}: {data:IPatrimony[]}){
                       filterByProp((i.obs).toString().slice(0, search.length))) {
                       return( 
                         <tr onClick={() => setForm({...form, data:i, state:true, save:update, operation:"edit"})} key={i.id} className="odd:bg-blue-50 divide-y hover:bg-gray-100 hover:shadow cursor-pointer trasnition">
-                          <td className="border-y p-3 text-center">
-                            <div className="max-h-10 overflow-hidden">
+                          <td className="border-y p-5 text-center">
+                            <div className="max-h-10 h-fit overflow-hidden">
                               {i.fantasyId}
                             </div>  
                           </td>
-                          <td className=" p-3 text-center">
+                          <td className="p-3 text-center">
                             <div className="max-h-10 overflow-hidden">
                                 {i.type}
                             </div>    
