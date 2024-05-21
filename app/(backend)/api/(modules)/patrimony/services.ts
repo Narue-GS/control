@@ -6,9 +6,6 @@ import { sql } from "@/app/lib/db"
 
 
 export async function CREATE(data:IPatrimony) {
-  console.log("CREATE");
-  console.log(data);
-  
   return await sql`
     INSERT INTO patrimony ("fantasyId", type, model, location, area, situation, obs, "user")
     VALUES (${data.fantasyId},${data.type}, ${data.model}, ${data.location}, ${data.area}, ${data.situation}, ${data.obs}, ${data.user})
@@ -52,4 +49,12 @@ export async function READ(): Promise<IPatrimony[] | []> {
     console.log(err)  
     return[]
   }
+}
+
+
+export async function DELETE(id:number) {
+  return await sql`
+    DELETE FROM patrimony
+    WHERE id = ${id}
+  `
 }

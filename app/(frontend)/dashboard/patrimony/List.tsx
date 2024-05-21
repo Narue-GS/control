@@ -4,7 +4,7 @@ import { IPatrimony, emptyModel } from "@/app/(backend)/api/(modules)/patrimony/
 import EntityForm from "./Form";
 
 import { useState } from "react";
-import { CREATE, UPDATE } from "@/app/(backend)/api/(modules)/patrimony/services";
+import { CREATE, DELETE, UPDATE } from "@/app/(backend)/api/(modules)/patrimony/services";
 
 export default function List({data}: {data:IPatrimony[]}){
   let [list, setList] = useState(data)
@@ -33,6 +33,7 @@ export default function List({data}: {data:IPatrimony[]}){
 
   function delete_(id:number) {
     setList([...list.filter(i => i.id != id)])
+    DELETE(id)
   }
 
   function createFantasyID(type:string) {
@@ -64,8 +65,8 @@ export default function List({data}: {data:IPatrimony[]}){
           {/* () => console.log(list[list.length -1].id.slice(0, 1) + (parseInt(list[list.length -1].id.slice(1)) + 1)) */}
         </header>
         <div className="flex justify-center mt-10">
-          <div onScroll={(e) => e.currentTarget.classList.add("outline")} onMouseLeave={(e) => e.currentTarget.classList.remove("outline")} className="overflow-scroll rounded-lg w-[55rem] max-h-[24rem] transition">
-            <table className="w-full p-3 border rounded-lg outline">
+          <div onScroll={(e) => e.currentTarget.classList.add("shadow-xl")} onMouseLeave={(e) => e.currentTarget.classList.remove("shadow-xl")} className="shadow-lg overflow-scroll rounded-lg w-[55rem] max-h-[24rem] transition">
+            <table className="w-full p-3 border rounded-lg">
               <tbody className="overflow-scroll ">
                 <tr className="bg-gray-300">
                   <th className="p-3 min-w-[5rem] ">id</th>
