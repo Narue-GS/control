@@ -44,10 +44,6 @@ const formSchema = z.object({
 })
  
 export default function EntityForm({data, close, save, delete_}: {data: IPatrimony, close:() => void, save:(data:IPatrimony) => void, delete_:(id:number) => void}) {
-  // let [selectedItem, setSelectedItem] = useState(data)
-
-  console.log(data);
-  
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -190,7 +186,7 @@ export default function EntityForm({data, close, save, delete_}: {data: IPatrimo
             <FormField control={form.control} name="obs" render={({ field }) => (
                 <FormItem>
                   <FormLabel>Observações</FormLabel>
-                  <Textarea placeholder="Observações e detalhes"/>
+                  <Textarea placeholder="Observações e detalhes" {...field}/>
                 </FormItem>
               )}
             /> 
