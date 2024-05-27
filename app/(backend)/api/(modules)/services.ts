@@ -10,6 +10,11 @@ const mock:IModule[] = [
     fantasy_name:"Patrimony 🏦",
     name:"patrimony",
   },
+  {
+    id:1,
+    fantasy_name:"Record 🧾",
+    name:"record",
+  },
   // {
   //   id:1,
   //   fantasy_name:"Invoices 📈",
