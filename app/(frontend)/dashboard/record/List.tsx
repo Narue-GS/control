@@ -1,32 +1,25 @@
 "use client"
 
-import { useState } from "react";
-
-import { IPatrimony, emptyModel } from "@/app/(backend)/api/(modules)/patrimony/types";
-import { IRecord } from "@/app/(backend)/api/(modules)/record/types";
-
+import { IRecord, emptyModel } from "@/app/(backend)/api/(modules)/record/types";
 import EntityForm from "./Form";
+
+import { useState } from "react";
+import { CREATE, DELETE, UPDATE } from "@/app/(backend)/api/(modules)/record/services";
 import Row from "./Row";
 
-import { CREATE, DELETE, UPDATE } from "@/app/(backend)/api/(modules)/patrimony/services";
-
-export default function List({data}: {data:{patrimony:IPatrimony[], record:IRecord[]}}){
-  let [list, setList] = useState(data.patrimony)
+export default function List({data, options}: {data:IRecord[], options:string[]}){
+  let [list, setList] = useState(data)
   const [search, setSearch] = useState("")
   const [form, setForm] = useState({state:false, data:{...emptyModel}, save:create, operation:""} )
 
-  function create(data:IPatrimony) {
-    data = {...data, fantasyId:createFantasyID(data.type)}
+  function create(data:IRecord) {
     CREATE(data)
     setList([...list, data])
   }
 
-  function update(data:IPatrimony) {
+  function update(data:IRecord) {
     list = list.map(i => {
       if(i.id == data.id) {
-        if(data.type != i.type) {
-          data.fantasyId = createFantasyID(data.type)
-        }
         i = data
       }
       return i
@@ -40,27 +33,23 @@ export default function List({data}: {data:{patrimony:IPatrimony[], record:IReco
     DELETE(id)
   }
 
-  function createFantasyID(type:string) {
-    // acha o último item com o a letra do id sendo igual a primeira letra do tipo informado
-    let lastItem = list.filter(i => i.fantasyId.slice(0,1) == type.slice(0,1)).length ? list.filter(i => i.fantasyId.slice(0,1) == type.slice(0,1))  : [{fantasyId:type.slice(0,1) + "0"}]
-    
-    // almenta o numeral do item encontrado em 1
-    let fantasyId = lastItem[lastItem.length -1 ].fantasyId.slice(0,1) + (parseInt(lastItem[lastItem.length -1 ].fantasyId.slice(1)) + 1)
-    return fantasyId
-  }
-
   function filterByProp(prop:string) {
     return prop.toLocaleUpperCase() == search.toLocaleUpperCase()
+  }
+
+
+  function readPatrimonies() {
+    return list.map(i => i.patrimony)
   }
 
   return(
     <>
       {
-        !form.state ? "" : <EntityForm data={form.data} close={() => setForm({...form, data:emptyModel, state:false})} save={form.save} delete_={delete_}/>
+        !form.state ? "" : <EntityForm data={form.data} close={() => setForm({...form, data:emptyModel, state:false})} save={form.save} delete_={delete_} options={options}/>
       }
       <section> 
         <header className="bg-blue-500 shadow-lg h-48 p-8 px-12">
-          <h1 className="text-white font-semibold mt-3 text-5xl">Patrimônio</h1>
+          <h1 className="text-white font-semibold mt-3 text-5xl">Histórico</h1>
           <div className=" flex justify-between items-end  ">
             <input onChange={(e) => setSearch(e.target.value)} className="mt-5 rounded-lg py-1 w-[65%] h-2/3" type="search" name="" id="" placeholder="Search..."/>
             <button onClick={() => setForm({...form, data:form.data, state:true, save:create, operation:""})} 
@@ -73,25 +62,19 @@ export default function List({data}: {data:{patrimony:IPatrimony[], record:IReco
             <table className="w-full p-3 border rounded-lg">
               <tbody className="overflow-scroll ">
                 <tr className="bg-gray-300">
-                  <th className="p-3 min-w-[5rem] ">id</th>
-                  <th className="p-3 min-w-[12rem] ">Tipo</th>
-                  <th className="p-3 min-w-[15rem] ">Modelo</th>
-                  <th className="p-3 min-w-[12rem] ">Localização</th>
-                  <th className="p-3 min-w-[12rem] ">Área</th>
-                  <th className="p-3 min-w-[12rem] ">Situação</th>
-                  <th className="p-3 min-w-[15rem] ">Usuário</th>
-                  <th className="p-3 min-w-[15rem] ">Observações</th>
+                  <th className="p-3 min-w-[5rem] ">Data</th>
+                  <th className="p-3 min-w-[5rem] ">Quem</th>
+                  <th className="p-3 min-w-[5rem] ">Ação</th>
+                  <th className="p-3 min-w-[5rem] ">Patrimônio</th>
                 </tr>
                 
                 {list.map((i) => {
                   if(search.length) {
-                    if(filterByProp(i.fantasyId.slice(0, search.length)) ||
-                      filterByProp(i.type.slice(0, search.length)) ||
-                      filterByProp(i.model.slice(0, search.length)) ||
-                      filterByProp(i.location.slice(0, search.length)) ||
-                      filterByProp(i.situation.slice(0, search.length)) ||
+                    if(filterByProp(JSON.stringify(i.patrimony)?.slice(0, search.length)) ||
                       filterByProp(i.user.slice(0, search.length)) ||
-                      filterByProp((i.obs).toString().slice(0, search.length))) {
+                      filterByProp(i.action.slice(0, search.length)) ||
+                      filterByProp(i.date.slice(0, search.length)) 
+                    ) {
                       return( 
                         <Row key={i.id} data={i} open={() => setForm({...form, data:i, state:true, save:update, operation:"edit"})}/>
                       )
