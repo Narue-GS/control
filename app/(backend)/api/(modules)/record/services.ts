@@ -35,7 +35,7 @@ export async function READ(): Promise<IRecord[]> {
         legacy:i.legacy,
         user:i.user,
         action:i.action,
-        date: i.date,
+        date: new Date (i.date.toISOString().split("T")[0] + "T00:00:00-03:00").toLocaleDateString("pt-BR"),
         obs:i.obs
       }))
     

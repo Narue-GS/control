@@ -73,7 +73,7 @@ export default function List({data, options}: {data:IRecord[], options:string[]}
                     if(filterByProp(JSON.stringify(i.patrimony)?.slice(0, search.length)) ||
                       filterByProp(i.user.slice(0, search.length)) ||
                       filterByProp(i.action.slice(0, search.length)) ||
-                      filterByProp(i.date.slice(0, search.length)) 
+                      filterByProp(i.date?.slice(0, search.length)) 
                     ) {
                       return( 
                         <Row key={i.id} data={i} open={() => setForm({...form, data:i, state:true, save:update, operation:"edit"})}/>
