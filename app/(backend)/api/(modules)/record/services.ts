@@ -8,7 +8,7 @@ import { sql } from "@/app/lib/db"
 export async function CREATE(data:IRecord) {
   return await sql`
     INSERT INTO record (patrimony_fID, "user", action, date, obs)
-    VALUES (${data.patrimony}, ${data.user}, ${data.action}, ${data.date}, ${data.obs})
+    VALUES (${data.patrimony}, ${data.user}, ${data.action}, ${new Date(data.date.replaceAll("/","-").split("-").reverse().join("-"))}, ${data.obs})
   `
 }
 

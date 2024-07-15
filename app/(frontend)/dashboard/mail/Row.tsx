@@ -1,7 +1,9 @@
 import { IMail } from "@/app/(backend)/api/(modules)/mail/types";
 
+import { Switch } from "@/components/ui/switch"
+
+
 export default function Row({data, open}: {data:IMail, open?:() => void}) {
-  let dateFormat = new Intl.DateTimeFormat('pt-BR').format
   
   return(
     <tr onClick={open} 
@@ -40,12 +42,18 @@ export default function Row({data, open}: {data:IMail, open?:() => void}) {
       </td>
       <td className="border-y p-5 text-center">
         <div className="max-h-10 overflow-hidden">
-          <input className="rounded-sm bg-gray-300 text-gray-500" type="checkbox" name="" disabled defaultChecked={data.identified} id="" />
+          <Switch
+            checked={data.identified}
+            disabled
+          />
         </div>  
       </td>
       <td className="border-y p-5 text-center">
         <div className="max-h-10 overflow-hidden">
-          <input className="rounded-sm bg-gray-300 text-gray-500" type="checkbox" name="" disabled defaultChecked={data.delivered} id="" />
+          <Switch
+            checked={data.delivered}
+            disabled
+          />
         </div>  
       </td>
       <td className="border-y p-5 text-center">

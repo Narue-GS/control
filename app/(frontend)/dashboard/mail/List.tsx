@@ -10,7 +10,7 @@ import Row from "./Row";
 export default function List({data}: {data:IMail[]}){
   let [list, setList] = useState(data)
   const [search, setSearch] = useState("")
-  const [form, setForm] = useState({state:false, data:{...emptyModel}, save:create} )
+  const [form, setForm] = useState({state:false, data:{...emptyModel}, save:create})
 
   function create(data:IMail) {
     CREATE(data)
@@ -56,16 +56,16 @@ export default function List({data}: {data:IMail[]}){
             <table className="w-full p-3 border rounded-lg">
               <tbody className="overflow-scroll ">
                 <tr className="bg-gray-300">
-                  <th className="p-3 min-w-[5rem] ">Data de chegada</th>
-                  <th className="p-3 min-w-[5rem] ">Quem recebeu</th>
-                  <th className="p-3 min-w-[5rem] ">Destinatário</th>
-                  <th className="p-3 min-w-[5rem] ">Rementente</th>
-                  <th className="p-3 min-w-[5rem] ">Quantidade</th>
-                  <th className="p-3 min-w-[5rem] ">Tipo de correspondência</th>
-                  <th className="p-3 min-w-[5rem] ">Identificado?</th>
-                  <th className="p-3 min-w-[5rem] ">Entregue?</th>
-                  <th className="p-3 min-w-[5rem] ">Data de descarte</th>
-                  <th className="p-3 min-w-[5rem] ">Email para notificação</th>
+                  <th className="p-3 min-w-[5rem]">Data de chegada</th>
+                  <th className="p-3 min-w-[5rem]">Quem recebeu</th>
+                  <th className="p-3 min-w-[5rem]">Destinatário</th>
+                  <th className="p-3 min-w-[5rem]">Rementente</th>
+                  <th className="p-3 min-w-[5rem]">Quantidade</th>
+                  <th className="p-3 min-w-[5rem]">Tipo de correspondência</th>
+                  <th className="p-3 min-w-[5rem]">Identificado?</th>
+                  <th className="p-3 min-w-[5rem]">Entregue?</th>
+                  <th className="p-3 min-w-[5rem]">Data de descarte</th>
+                  <th className="p-3 min-w-[5rem]">Email para notificação</th>
                 </tr>
                 
                 {list.map((i) => {

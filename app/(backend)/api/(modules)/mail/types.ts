@@ -1,7 +1,7 @@
 export interface IMail {
   id:number,
   receptor:string,
-  arraival:string,
+  arraival:string, //date
   addressee:string,
   format:"Carta" | "Envelope" | "Caixa" | "Pacote" | "Outro",
   email:string,
@@ -9,7 +9,7 @@ export interface IMail {
   quantity:number,
   identified:boolean,
   delivered:boolean,
-  descart_date:string,
+  descart_date:string, //date
 }
 
 export const emptyModel:IMail = {
