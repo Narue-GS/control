@@ -13,7 +13,7 @@ export default async function RootLayout({children,}:{children: React.ReactNode;
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased `}>
-        <section className='flex flex-row'>
+        <section className='flex'>
           <Sidebar username={currentUser} modules={modules}/>
           {children}
         </section>
