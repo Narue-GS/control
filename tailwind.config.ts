@@ -17,6 +17,10 @@ const config: Config = {
           500: '#0070F3',
           600: '#2F6FEB',
         },
+        primary: '#2589FE',
+        destructive: 'none',
+        input:'#a4a2a2',
+        background:'#ffffff'
       },
       backgroundSize: {
         'close':'300%',

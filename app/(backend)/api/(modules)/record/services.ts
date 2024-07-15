@@ -18,7 +18,7 @@ export async function UPDATE(data:IRecord) {
     SET patrimony_fID = ${data.patrimony},
       "user" = ${data.user},
       action = ${data.action},
-      date = ${data.date},
+      date = ${new Date(data.date.replaceAll("/","-").split("-").reverse().join("-"))},
       obs = ${data.obs}
     WHERE id = ${data.id}
   `
@@ -28,7 +28,7 @@ export async function READ(): Promise<IRecord[]> {
   const req = await sql`SELECT * from record ORDER BY id`
   
   try {
-    const data = req.map((i) => (
+    const data:IRecord[] = req.map((i) => (
       {
         id:i.id,
         patrimony:i.patrimony_fid,
@@ -38,6 +38,11 @@ export async function READ(): Promise<IRecord[]> {
         date: new Date (i.date.toISOString().split("T")[0] + "T00:00:00-03:00").toLocaleDateString("pt-BR"),
         obs:i.obs
       }))
+
+      console.log(data[0]);
+      
+    
+      // new Date (i.date.toISOString().split("T")[0] + "T00:00:00-03:00").toLocaleDateString("pt-BR")
     
     return data
   }

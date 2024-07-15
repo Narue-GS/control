@@ -44,10 +44,6 @@ const formSchema = z.object({
 })
  
 export default function EntityForm({data, close, save, delete_}: {data: IPatrimony, close:() => void, save:(data:IPatrimony) => void, delete_:(id:number) => void}) {
-  // let [selectedItem, setSelectedItem] = useState(data)
-
-  console.log(data);
-  
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -194,8 +190,8 @@ export default function EntityForm({data, close, save, delete_}: {data: IPatrimo
                 </FormItem>
               )}
             /> 
-            <Button className="px-4 py-1 outline rounded-lg text-red-500 hover:scale-110 transition mr-5" type="button" onClick={close}>Cancelar</Button>
-            <Button className="px-4 py-1 outline rounded-lg text-green-600 hover:scale-110 transition" type="submit" >Confirmar</Button>
+            <Button variant={"destructive"} className="px-4 py-1 rounded-lg outline text-red-500 hover:scale-110 transition mr-5" type="button" onClick={close}>Cancelar</Button>
+            <Button className="px-4 py-1 rounded-lg text-white hover:scale-110 transition" type="submit" >Confirmar</Button>
             <br />
             {data.id != 0 ?
               <Confirm confirmFunction={() => {delete_(data.id); close()}}>
