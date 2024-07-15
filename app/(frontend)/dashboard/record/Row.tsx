@@ -10,13 +10,7 @@ export default function Row({data, open}: {data:IRecord, open?:() => void}) {
     >
       <td className="border-y p-5 text-center">
         <div className="max-h-10 overflow-hidden">
-          {new Date(data.date + "T00:00:00-03:00").toLocaleDateString("pt-Br",
-              {
-                dateStyle: "short",
-                timeZone: "America/Sao_Paulo"
-              }
-            )
-          }
+          {data.date}
         </div>  
       </td>
       <td className="border-y p-5 text-center">

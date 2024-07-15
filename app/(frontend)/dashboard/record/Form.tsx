@@ -36,18 +36,15 @@ import { IRecord } from "@/app/(backend)/api/(modules)/record/types"
 
 
 const formSchema = z.object({
-  patrimony:z.string(),
+  patrimony:z.string().min(1,{message:"escolha o patrimônio afetado"}),
   user:z.string(),
   action:z.string(),
-  date:z.string().optional(),
+  date:z.string(),
   obs:z.string().optional(),
 })
  
 export default function EntityForm({data, close, save, delete_, options}: {data: IRecord, close:() => void, save:(data:IRecord) => void, delete_:(id:number) => void, options:string[]}) {
   // let [selectedItem, setSelectedItem] = useState(data)
-
-  console.log(options);
-  
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -55,29 +52,27 @@ export default function EntityForm({data, close, save, delete_, options}: {data:
       patrimony:data.patrimony || "",
       user:data.user || "",
       action:data.action || "",
-      date:data.date,
+      date:data.date.replaceAll("/","-").split("-").reverse().join("-") || "",
       obs:data.obs || ""
     },
   })
- 
-  // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-      save({
-        id: data.id,
-        patrimony:values.patrimony,
-        user:values.user,
-        action:values.action,
-        legacy: "",
-        date:values.date || "",
-        obs:values.obs || ""
-      })
-      close()
-    }
+
+  console.log()
 
 
-
-
-
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    save({
+      id: data.id,
+      patrimony:values.patrimony,
+      user:values.user,
+      action:values.action,
+      legacy: "",
+      date: values.date.replaceAll("-", "/").split("/").reverse().join("/")|| "",
+      obs:values.obs || ""
+    })
+    
+    close()
+  }
     
   return (
     <section className="flex w-screen h-screen fixed left-0 justify-center">
@@ -142,8 +137,8 @@ export default function EntityForm({data, close, save, delete_, options}: {data:
               </FormItem>
               )}
             />
-            <Button className="px-4 py-1 outline rounded-lg text-red-500 hover:scale-110 transition mr-5" type="button" onClick={close}>Cancelar</Button>
-            <Button className="px-4 py-1 outline rounded-lg text-green-600 hover:scale-110 transition" type="submit" >Confirmar</Button>
+            <Button variant={"destructive"} className="px-4 py-1 rounded-lg outline text-red-500 hover:scale-110 transition mr-5" type="button" onClick={close}>Cancelar</Button>
+            <Button className="px-4 py-1 rounded-lg text-white hover:scale-110 transition" type="submit" >Confirmar</Button>
             <br />
             {data.id != 0 ?
               <Confirm confirmFunction={() => {delete_(data.id); close()}}>
