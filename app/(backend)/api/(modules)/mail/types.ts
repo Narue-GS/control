@@ -32,7 +32,7 @@ export function whenToDescart(date:Date){
   return date
 }
 
-export function formatDate(date:Date, parse:boolean=false){
+export function formatDate(date:Date , parse:boolean=false){
   if(parse)return date.toLocaleDateString("pt-BR").replaceAll("-","/").split("-").reverse().join("-")
     return date.toLocaleDateString("pt-BR").replaceAll("/","-").split("-").reverse().join("-")
 }

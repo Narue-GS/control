@@ -217,6 +217,7 @@ export default function EntityForm({data, close, save, delete_}: {data: IMail, c
                 <FormControl>
                   <Input type="date" placeholder="" {...field} />
                 </FormControl>
+                <FormDescription className="opacity-50">data padrão de 3 meses a frente</FormDescription>
                 <FormMessage />
               </FormItem>
               )}
