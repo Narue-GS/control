@@ -25,3 +25,14 @@ export const emptyModel:IMail = {
   delivered:false,
   descart_date:"",
 }
+
+
+export function whenToDescart(date:Date){
+  date.setMonth(date.getMonth() + 3)
+  return date
+}
+
+export function formatDate(date:Date, parse:boolean=false){
+  if(parse)return date.toLocaleDateString("pt-BR").replaceAll("-","/").split("-").reverse().join("-")
+    return date.toLocaleDateString("pt-BR").replaceAll("/","-").split("-").reverse().join("-")
+}

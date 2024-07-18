@@ -34,6 +34,7 @@ import { Dialog } from "@/components/ui/dialog"
 import { Confirm } from "@/components/ui/confirm"
 
 import { IMail } from "@/app/(backend)/api/(modules)/mail/types"
+import { formatDate, whenToDescart } from "@/app/(backend)/api/(modules)/mail/types"
 
 
 const formSchema = z.object({
@@ -48,15 +49,15 @@ const formSchema = z.object({
   delivered: z.boolean(),
   descart_date: z.string(),
 })
- 
+
 export default function EntityForm({data, close, save, delete_}: {data: IMail, close:() => void, save:(data:IMail) => void, delete_:(id:number) => void}) {
   // let [selectedItem, setSelectedItem] = useState(data)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      receptor: data.receptor,
-      arraival: data.arraival.replaceAll("/","-").split("-").reverse().join("-") || "",
+      receptor: data.receptor || "Naruê",
+      arraival: data.arraival.replaceAll("/","-").split("-").reverse().join("-") || new Date().toLocaleDateString("pt-BR").replaceAll("/","-").split("-").reverse().join("-"),
       addressee: data.addressee,
       format: data.format,
       email: data.email,
@@ -64,9 +65,14 @@ export default function EntityForm({data, close, save, delete_}: {data: IMail, c
       quantity: data.quantity.toString(),
       identified: data.identified,
       delivered: data.delivered,
-      descart_date: data.descart_date.replaceAll("/","-").split("-").reverse().join("-") || "",
+      descart_date: data.descart_date.replaceAll("/","-").split("-").reverse().join("-") || formatDate(whenToDescart(new Date())),
     },
   })
+
+
+
+  console.log(formatDate(whenToDescart(new Date())) );
+  
  
   // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof formSchema>) {

@@ -40,7 +40,7 @@ export async function UPDATE(data:IMail) {
 }
 
 export async function READ(): Promise<IMail[]> {
-  const req = await sql`SELECT * from mail ORDER BY id`
+  const req = await sql`SELECT * from mail ORDER BY arraival`
   
   try {
     const data = req.map((i) => (
@@ -72,6 +72,8 @@ export async function DELETE(id:number) {
     WHERE id = ${id}
   `
 }
+
+
 
 
 
