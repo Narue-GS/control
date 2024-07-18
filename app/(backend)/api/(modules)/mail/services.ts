@@ -8,10 +8,17 @@ import { sql } from "@/app/lib/db"
 export async function CREATE(data:IMail) {
   return await sql`
     INSERT INTO mail (receptor, arraival, addressee, format, email, sender, quantity, identified, delivered, descart_date)
-    VALUES (${data.receptor}, ${data.arraival}, ${data.addressee}, 
-            ${data.format}, ${data.email}, ${data.sender}, 
-            ${data.quantity}, ${data.identified}, ${data.delivered}, 
-            ${data.descart_date})
+    VALUES (${data.receptor},
+    ${new Date(data.arraival.replaceAll("/","-").split("-").reverse().join("-"))},
+    ${data.addressee}, 
+    ${data.format},
+    ${data.email},
+    ${data.sender}, 
+    ${data.quantity},
+    ${data.identified},
+    ${data.delivered}, 
+    ${new Date(data.descart_date.replaceAll("/","-").split("-").reverse().join("-"))},
+
   `
 }
 
@@ -19,7 +26,7 @@ export async function UPDATE(data:IMail) {
   return await sql`
     UPDATE mail
     SET receptor = ${data.receptor},
-      arraival = ${data.arraival},
+      arraival = ${new Date(data.arraival.replaceAll("/","-").split("-").reverse().join("-"))},
       addressee = ${data.addressee},
       format = ${data.format},
       email = ${data.email},
@@ -27,13 +34,13 @@ export async function UPDATE(data:IMail) {
       quantity = ${data.quantity},
       identified = ${data.identified},
       delivered = ${data.delivered},
-      descart_date = ${data.descart_date},
+      descart_date = ${new Date(data.descart_date.replaceAll("/","-").split("-").reverse().join("-"))}
     WHERE id = ${data.id}
   `
 }
 
 export async function READ(): Promise<IMail[]> {
-  const req = await sql`SELECT * from mail ORDER BY id`
+  const req = await sql`SELECT * from mail ORDER BY arraival`
   
   try {
     const data = req.map((i) => (
@@ -65,6 +72,8 @@ export async function DELETE(id:number) {
     WHERE id = ${id}
   `
 }
+
+
 
 
 

@@ -16,11 +16,11 @@ const mock:IModule[] = [
     fantasy_name:"Record 🧾",
     name:"record",
   },
-  // {
-  //   id:1,
-  //   fantasy_name:"Invoices 📈",
-  //   name:"invoice",
-  // },
+  {
+    id:2,
+    fantasy_name:"Correspondências",
+    name:"mail",
+  },
 ]
 
 

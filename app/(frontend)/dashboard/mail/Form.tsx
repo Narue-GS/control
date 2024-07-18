@@ -34,6 +34,7 @@ import { Dialog } from "@/components/ui/dialog"
 import { Confirm } from "@/components/ui/confirm"
 
 import { IMail } from "@/app/(backend)/api/(modules)/mail/types"
+import { formatDate, whenToDescart } from "@/app/(backend)/api/(modules)/mail/types"
 
 
 const formSchema = z.object({
@@ -48,17 +49,15 @@ const formSchema = z.object({
   delivered: z.boolean(),
   descart_date: z.string(),
 })
- 
+
 export default function EntityForm({data, close, save, delete_}: {data: IMail, close:() => void, save:(data:IMail) => void, delete_:(id:number) => void}) {
   // let [selectedItem, setSelectedItem] = useState(data)
-  console.log(data);
-  
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      receptor: data.receptor,
-      arraival: "01-01-2024",
+      receptor: data.receptor || "Naruê",
+      arraival: data.arraival.replaceAll("/","-").split("-").reverse().join("-") || new Date().toLocaleDateString("pt-BR").replaceAll("/","-").split("-").reverse().join("-"),
       addressee: data.addressee,
       format: data.format,
       email: data.email,
@@ -66,16 +65,21 @@ export default function EntityForm({data, close, save, delete_}: {data: IMail, c
       quantity: data.quantity.toString(),
       identified: data.identified,
       delivered: data.delivered,
-      descart_date: data.descart_date,
+      descart_date: data.descart_date.replaceAll("/","-").split("-").reverse().join("-") || formatDate(whenToDescart(new Date())),
     },
   })
+
+
+
+  console.log(formatDate(whenToDescart(new Date())) );
+  
  
   // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof formSchema>) {
       save({
         id:data.id,
         receptor: values.receptor,
-        arraival: values.arraival,
+        arraival: values.arraival.replaceAll("-", "/").split("/").reverse().join("/")|| "",
         addressee: values.addressee || "Não informado",
         format: values.format,
         email: values.email || "Não informado",
@@ -83,7 +87,7 @@ export default function EntityForm({data, close, save, delete_}: {data: IMail, c
         quantity: +values.quantity,
         identified: values.identified,
         delivered: values.delivered,
-        descart_date: values.descart_date,
+        descart_date: values.descart_date.replaceAll("-", "/").split("/").reverse().join("/")|| "",
       })
       close()
     }
@@ -96,7 +100,6 @@ export default function EntityForm({data, close, save, delete_}: {data: IMail, c
       <div className="w-[30rem] max-w-[90vw] max-h-[88vh] overflow-scroll animate-open-b  absolute top-10 z-20 bg-white p-4 rounded-lg">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-
             <FormField control={form.control} name="receptor" render={({ field }) => (
               <FormItem>
                 <FormLabel>Quem recebeu</FormLabel>
@@ -197,7 +200,7 @@ export default function EntityForm({data, close, save, delete_}: {data: IMail, c
             />
             <FormField control={form.control} name="delivered" render={({ field }) => (
               <FormItem>
-                <FormLabel>entregue?</FormLabel><br />
+                <FormLabel>Entregue?</FormLabel><br />
                 <FormControl>
                   <Switch
                     checked={field.value}
@@ -214,13 +217,13 @@ export default function EntityForm({data, close, save, delete_}: {data: IMail, c
                 <FormControl>
                   <Input type="date" placeholder="" {...field} />
                 </FormControl>
+                <FormDescription className="opacity-50">data padrão de 3 meses a frente</FormDescription>
                 <FormMessage />
               </FormItem>
               )}
             />
-            
             <Button variant={"destructive"} className="px-4 py-1 outline rounded-lg text-red-500 hover:scale-110 transition mr-5" type="button" onClick={close}>Cancelar</Button>
-            <Button className="px-4 py-1 outline rounded-lg text-white hover:scale-110 transition" type="submit" >Confirmar</Button>
+            <Button className="px-4 py-1 rounded-lg text-white hover:scale-110 transition" type="submit" >Confirmar</Button>
             <br />
             {data.id != 0 ?
               <Confirm confirmFunction={() => {delete_(data.id); close()}}>

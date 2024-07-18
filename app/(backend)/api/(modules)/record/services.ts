@@ -8,7 +8,7 @@ import { sql } from "@/app/lib/db"
 export async function CREATE(data:IRecord) {
   return await sql`
     INSERT INTO record (patrimony_fID, "user", action, date, obs)
-    VALUES (${data.patrimony}, ${data.user}, ${data.action}, ${data.date}, ${data.obs})
+    VALUES (${data.patrimony}, ${data.user}, ${data.action}, ${new Date(data.date.replaceAll("/","-").split("-").reverse().join("-"))}, ${data.obs})
   `
 }
 
@@ -25,7 +25,11 @@ export async function UPDATE(data:IRecord) {
 }
 
 export async function READ(): Promise<IRecord[]> {
-  const req = await sql`SELECT * from record ORDER BY id`
+  const req = await sql`SELECT * FROM record ORDER BY id`
+  // const test = await sql`SELECT record.*, patrimony.id
+  //                       FROM record LEFT JOIN patrimony 
+  //                       ON record.patrimony_fid=patrimony."fantasyId"`
+  // console.log(test);
   
   try {
     const data:IRecord[] = req.map((i) => (
@@ -39,11 +43,6 @@ export async function READ(): Promise<IRecord[]> {
         obs:i.obs
       }))
 
-      console.log(data[0]);
-      
-    
-      // new Date (i.date.toISOString().split("T")[0] + "T00:00:00-03:00").toLocaleDateString("pt-BR")
-    
     return data
   }
   catch(err) {

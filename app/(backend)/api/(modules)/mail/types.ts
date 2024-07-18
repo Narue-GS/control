@@ -1,7 +1,7 @@
 export interface IMail {
   id:number,
   receptor:string,
-  arraival:string,
+  arraival:string, //date
   addressee:string,
   format:"Carta" | "Envelope" | "Caixa" | "Pacote" | "Outro",
   email:string,
@@ -9,7 +9,7 @@ export interface IMail {
   quantity:number,
   identified:boolean,
   delivered:boolean,
-  descart_date:string,
+  descart_date:string, //date
 }
 
 export const emptyModel:IMail = {
@@ -24,4 +24,15 @@ export const emptyModel:IMail = {
   identified:true,
   delivered:false,
   descart_date:"",
+}
+
+
+export function whenToDescart(date:Date){
+  date.setMonth(date.getMonth() + 3)
+  return date
+}
+
+export function formatDate(date:Date , parse:boolean=false){
+  if(parse)return date.toLocaleDateString("pt-BR").replaceAll("-","/").split("-").reverse().join("-")
+    return date.toLocaleDateString("pt-BR").replaceAll("/","-").split("-").reverse().join("-")
 }
