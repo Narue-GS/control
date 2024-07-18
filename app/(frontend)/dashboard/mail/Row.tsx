@@ -9,7 +9,7 @@ export default function Row({data, open}: {data:IMail, open?:() => void}) {
   return(
     <tr onClick={open} 
       key={data.id} 
-      style={new Date() >= new Date(data.descart_date.replaceAll("/", "-").split("-").reverse().join("-"))? {border:"solid", borderColor:"red"} : {}}
+      style={new Date() >= new Date(data.descart_date.replaceAll("/", "-").split("-").reverse().join("-"))? !data.delivered? {border:"solid", borderColor:"red"} : {} : {}}
       className="odd:bg-blue-50  divide-y hover:bg-gray-100 hover:shadow cursor-pointer trasnition"
     >
       <td className="border-y p-5 text-center">
